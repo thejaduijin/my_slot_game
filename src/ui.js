@@ -30,6 +30,6 @@ export function setupUI(app, startPlay) {
     payTableButton.y = 600;
     payTableButton.eventMode = "static";
     payTableButton.cursor = "pointer";
-    payTableButton.on("pointerdown", showPayTable);
+    payTableButton.on("pointerdown", () => showPayTable(app));
     app.stage.addChild(payTableButton);
 }
