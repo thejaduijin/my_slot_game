@@ -14,8 +14,25 @@ export function createReels(app, textures) {
         reels.push(createReel(i, container, symbolKeys, textures));
     }
 
+    // Make the reels container responsive
+    function resizeReels() {
+        const scaleFactor = Math.min(
+            window.innerWidth / (5 * REEL_WIDTH), // Scale based on width
+            window.innerHeight / (4 * SYMBOL_SIZE) // Scale based on height
+        );
+
+        container.scale.set(scaleFactor);
+        container.x = (window.innerWidth - (5 * REEL_WIDTH * scaleFactor)) / 2;
+        container.y = (window.innerHeight - (3 * SYMBOL_SIZE * scaleFactor)) / 2;
+    }
+
+    // Initial positioning and resize on window change
+    resizeReels();
+    window.addEventListener("resize", resizeReels);
+
     return reels;
 }
+
 
 function createReel(x, container, symbolKeys, textures) {
     const rc = new PIXI.Container();
@@ -25,10 +42,10 @@ function createReel(x, container, symbolKeys, textures) {
     // Create a mask for the reel
     const mask = new PIXI.Graphics();
     mask.beginFill(0x000000);
-    mask.drawRect(0, 0, REEL_WIDTH, SYMBOL_SIZE * 3); 
+    mask.drawRect(0, 0, REEL_WIDTH, SYMBOL_SIZE * 3);
     mask.endFill();
     mask.x = rc.x; // Align with the reel container
-    container.addChild(mask); 
+    container.addChild(mask);
     rc.mask = mask;
 
     const reel = {

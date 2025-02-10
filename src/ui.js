@@ -33,3 +33,5 @@ export function setupUI(app, startPlay) {
     payTableButton.on("pointerdown", () => showPayTable(app));
     app.stage.addChild(payTableButton);
 }
+
+
